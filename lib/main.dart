@@ -5,7 +5,7 @@ import 'components/transaction_form.dart';
 import 'components/transaction_list.dart';
 import 'models/transaction.dart';
 
-main() => runApp(ExpensesApp());
+void main() => runApp(ExpensesApp());
 
 class ExpensesApp extends StatelessWidget {
   @override
@@ -129,6 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        key: Key('add_btn'),
         child: Icon(Icons.add),
         onPressed: () => _openTransactionFormModa(context),
       ),

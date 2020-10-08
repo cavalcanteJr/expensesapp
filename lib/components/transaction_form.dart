@@ -58,11 +58,13 @@ class _TransactionsFormState extends State<TransactionsForm> {
           child: Column(
             children: <Widget>[
               TextField(
+                key: Key('title_exp'),
                 controller: _titleController,
                 decoration: InputDecoration(labelText: 'Titulo'),
                 onSubmitted: (_) => _submitForm(),
               ),
               TextField(
+                key: Key('value_exp'),
                 controller: _valueController,
                 keyboardType: TextInputType.numberWithOptions(decimal: true),
                 onSubmitted: (_) => _submitForm(),
@@ -93,6 +95,7 @@ class _TransactionsFormState extends State<TransactionsForm> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   RaisedButton(
+                    key: Key('save_btn'),
                     child: Text('Nova Transação'),
                     color: Theme.of(context).primaryColor,
                     textColor: Theme.of(context).textTheme.button.color,
