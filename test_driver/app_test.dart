@@ -1,6 +1,5 @@
 import 'package:flutter_driver/flutter_driver.dart';
 import 'package:test/test.dart';
-import 'dart:convert';
 
 void main() {
   group('Teste para a aplicação de controle de finanças', () {
@@ -19,44 +18,45 @@ void main() {
       }
     });
 
-    // test('Verificar se o aplicativo inicia sem nenhuma conta cadastrada', () async {
-    //   final noExpenses = find.byValueKey('noExpenses');
+    test('Verificar se o aplicativo inicia sem nenhuma conta cadastrada', () async {
+      final noExpenses = find.byValueKey('noExpenses');
 
-    //   expect(await driver.getText(noExpenses), 'Nenhuma transação cadastrada');
-    // });
+      expect(await driver.getText(noExpenses), 'Nenhuma transação cadastrada');
+    });
 
-    // test('Cadastrando a primeira conta', () async {
-    //   //Key's transaction form
-    //   final addBtn = find.byValueKey('add_btn');
-    //   final expTitle = find.byValueKey('title_exp');
-    //   final expValue = find.byValueKey('value_exp');
-    //   final saveBtn = find.byValueKey('save_btn');
+    test('Cadastrando a primeira conta', () async {
+      //Key's transaction form
+      final addBtn = find.byValueKey('add_btn');
+      final expTitle = find.byValueKey('title_exp');
+      final expValue = find.byValueKey('value_exp');
+      final saveBtn = find.byValueKey('save_btn');
 
-    //   //Key's transaction list
-    //   final transactionTitle = find.byValueKey('transaction_title');
-    //   final transactionValue = find.byValueKey('transaction_value');
+      //Key's transaction list
+      final transactionTitle = find.byValueKey('transaction_title');
+      final transactionValue = find.byValueKey('transaction_value');
 
-    //   //Execução dos passos para adicionar uma dispesa
-    //   await driver.tap(addBtn);
-    //   await driver.tap(expTitle);
-    //   await driver.enterText('Minha primeira despesa');
-    //   await driver.tap(expValue);
-    //   await driver.enterText('123');
-    //   await driver.tap(saveBtn);
+      //Execução dos passos para adicionar uma dispesa
+      await driver.tap(addBtn);
+      await driver.tap(expTitle);
+      await driver.enterText('Minha primeira despesa');
+      await driver.tap(expValue);
+      await driver.enterText('123');
+      await driver.tap(saveBtn);
 
-    //   //Captura das propriedades dos Elementos e pegando exatamente o elemento Value, que representa os valores inseridos no Form
-    //   final transactionTitleProps = (await driver.getWidgetDiagnostics(transactionTitle))['properties'] as List;
-    //   var transactionTitleValue = transactionTitleProps[3]['value'];
+      //Captura das propriedades dos Elementos e pegando exatamente o elemento Value, que representa os valores inseridos no Form
+      final transactionTitleProps = (await driver.getWidgetDiagnostics(transactionTitle))['properties'] as List;
+      var transactionTitleValue = transactionTitleProps[3]['value'];
 
-    //   final transactionValueProps = (await driver.getWidgetDiagnostics(transactionValue))['properties'] as List;
-    //   var transactionValueValue = transactionValueProps[3]['value'];
+      final transactionValueProps = (await driver.getWidgetDiagnostics(transactionValue))['properties'] as List;
+      var transactionValueValue = transactionValueProps[3]['value'];
 
-    //   //Comparando os valores
-    //   expect(transactionTitleValue, 'Minha primeira despesa');
-    //   expect(transactionValueValue, 'R\$123.0');
-    // });
+      //Comparando os valores
+      expect(transactionTitleValue, 'Minha primeira despesa');
+      expect(transactionValueValue, 'R\$123.0');
+    });
 
     test('Deletar uma despesa com swipe', () async {
+      await driver.requestData('restart');
       final addBtn = find.byValueKey('add_btn');
       final expTitle = find.byValueKey('title_exp');
       final expValue = find.byValueKey('value_exp');
@@ -98,7 +98,7 @@ void main() {
       await driver.enterText('123');
       await driver.tap(saveBtn);
 
-      await driver.scrollUntilVisible(transactionValue, deleteBtn, dxScroll: -300);
+      await driver.scrollUntilVisible(transactionValue, noExpenses, dxScroll: -300);
 
       expect(await driver.getText(noExpenses), 'Nenhuma transação cadastrada');
     });
