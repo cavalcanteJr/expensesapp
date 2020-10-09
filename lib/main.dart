@@ -5,9 +5,10 @@ import 'components/transaction_form.dart';
 import 'components/transaction_list.dart';
 import 'models/transaction.dart';
 
-void main() => runApp(ExpensesApp());
+void main() => runApp(ExpensesApp(key: UniqueKey()));
 
 class ExpensesApp extends StatelessWidget {
+  ExpensesApp({Key key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return MaterialApp(

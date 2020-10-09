@@ -11,6 +11,11 @@ void main() {
       driver = await FlutterDriver.connect();
     });
 
+    //Será responsavel reinicar o app para a execução de cada teste
+    setUp(() async {
+      await driver.requestData('restart');
+    });
+
     //Nesse função a gente verificar se há uma conexão, se tiver a gente fecha a conexão
     tearDownAll(() async {
       if (driver != null) {
