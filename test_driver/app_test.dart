@@ -11,11 +11,6 @@ void main() {
       driver = await FlutterDriver.connect();
     });
 
-    //Será responsavel reinicar o app para a execução de cada teste
-    setUp(() async {
-      await driver.requestData('restart');
-    });
-
     //Nesse função a gente verificar se há uma conexão, se tiver a gente fecha a conexão
     tearDownAll(() async {
       if (driver != null) {
@@ -60,48 +55,21 @@ void main() {
       expect(transactionValueValue, 'R\$123.0');
     });
 
-    test('Deletar uma despesa com swipe', () async {
-      await driver.requestData('restart');
-      final addBtn = find.byValueKey('add_btn');
-      final expTitle = find.byValueKey('title_exp');
-      final expValue = find.byValueKey('value_exp');
-      final saveBtn = find.byValueKey('save_btn');
-      final noExpenses = find.byValueKey('noExpenses');
+    // test('Deletar uma despesa com swipe', () async {
+    //   final noExpenses = find.byValueKey('noExpenses');
 
-      //Key's transaction list
-      final transactionValue = find.byValueKey('transaction_value');
+    //   //Key's transaction list
+    //   final transactionValue = find.byValueKey('transaction_value');
 
-      //Execução dos passos para adicionar uma dispesa
-      await driver.tap(addBtn);
-      await driver.tap(expTitle);
-      await driver.enterText('Minha primeira despesa');
-      await driver.tap(expValue);
-      await driver.enterText('123');
-      await driver.tap(saveBtn);
-
-      await driver.scroll(transactionValue, 300, 0, Duration(milliseconds: 500));
-
-      expect(await driver.getText(noExpenses), 'Nenhuma transação cadastrada');
-    });
+    //   await driver.scroll(transactionValue, 300, 0, Duration(milliseconds: 500));
+    //   expect(await driver.getText(noExpenses), 'Nenhuma transação cadastrada');
+    // });
 
     test('Deletar uma despesa com swipe 2', () async {
-      final addBtn = find.byValueKey('add_btn');
-      final expTitle = find.byValueKey('title_exp');
-      final expValue = find.byValueKey('value_exp');
-      final saveBtn = find.byValueKey('save_btn');
-      final deleteBtn = find.byValueKey('delete_by_swipe');
       final noExpenses = find.byValueKey('noExpenses');
 
       //Key's transaction list
       final transactionValue = find.byValueKey('transaction_value');
-
-      //Execução dos passos para adicionar uma dispesa
-      await driver.tap(addBtn);
-      await driver.tap(expTitle);
-      await driver.enterText('Minha primeira despesa');
-      await driver.tap(expValue);
-      await driver.enterText('123');
-      await driver.tap(saveBtn);
 
       await driver.scrollUntilVisible(transactionValue, noExpenses, dxScroll: -300);
 
